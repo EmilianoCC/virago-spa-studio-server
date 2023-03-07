@@ -3,27 +3,22 @@ const router = express.Router()
 const Appointment = require('../models/Appointment.model')
 const User = require('../models/User.model')
 
-router.post('/create', (req, res, next) => {
+router.post('/create', async (req, res, next) => {
   const { name, service, email, date, id } = req.body
   console.log(req.body)
-
-  Appointment.create({ name, service, email, date, id })
-    .then((response) => {
-      console.log(response._id)
-      User.findByIdAndUpdate(id, {
-        $push: { cita: response._id }
-      })
-    })
-    .then((response) => res.json(response))
-
-    .catch((err) => console.log(err))
+  const citas = await Appointment.create({ name, service, email, date, id })
+  await User.findByIdAndUpdate(id, { $push: { cita: citas._id } })
+  console.log(res.json(citas))
 })
-
-router.get('/create', (req, res) => {
-  Appointment.find()
-    .then((appointment) => {
-      res.json(appointment)
+router.get('/citas/:userid', (req, res) => {
+  const { userid } = req.params
+  User.findById(userid)
+    .populate('cita')
+    .then((user) => {
+      res.json(user.cita)
     })
     .catch((err) => console.log(err))
 })
+
+//mandar id, buscar con find
 module.exports = router

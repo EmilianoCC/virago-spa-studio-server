@@ -6,7 +6,7 @@ const AppointmentSchema = new Schema(
     service: {
       type: String,
       required: [true, 'Service is required.'],
-      enum: ['maquillaje', 'cavitacion']
+      enum: ['maquillaje', 'cavitacion', 'uñas', 'pestañas']
     },
     date: {
       type: String,
