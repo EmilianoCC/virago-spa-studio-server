@@ -5,20 +5,20 @@ const AppointmentSchema = new Schema(
   {
     service: {
       type: String,
-      required: [true, 'Service is required.'],
+      required: [true, 'El serivicio es requerido.'],
       enum: ['maquillaje', 'cavitacion', 'uñas', 'pestañas']
     },
     date: {
       type: String,
-      required: [true, 'Date is required.']
+      required: [true, 'Necesitamos tu fecha.']
     },
     name: {
       type: String,
-      required: [true, 'Name is required.']
+      required: [true, 'Nombre requerido.']
     },
     email: {
       type: String,
-      required: [true, 'Email is required.']
+      required: [true, 'Correo electronico requerido.']
     },
     id: {
       type: String

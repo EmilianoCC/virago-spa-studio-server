@@ -24,6 +24,9 @@ app.use('/auth', authRoutes)
 const spaRoutes = require('./routes/spa.routes')
 app.use('/spa', spaRoutes)
 
+const citaRoutes = require('./routes/citas.routes')
+app.use('/citas', citaRoutes)
+
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require('./error-handling')(app)
 
