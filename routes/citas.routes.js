@@ -13,11 +13,20 @@ router.delete('/citas/:id', (req, res) => {
 })
 // tambien recibir boddy
 router.put('/update/:id', (req, res) => {
-  const { id } = req.params
-  const { service, date, name, email } = req.body
-  Appointment.findByIdAndUpdate(id)
+  const { service, date, name, email, id } = req.body.requestBody
+
+  const newAppointment = Appointment.findByIdAndUpdate(
+    id,
+    {
+      service: service,
+      date: date,
+      name: name,
+      email: email
+    },
+    { new: true }
+  )
     .then(() => {
-      res.json({ message: 'update' })
+      res.json(newAppointment)
     })
     .catch((err) => console.log(err))
 })

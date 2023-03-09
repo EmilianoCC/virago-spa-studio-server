@@ -5,13 +5,14 @@ const User = require('../models/User.model')
 
 router.post('/create', async (req, res, next) => {
   const { name, service, email, date, id } = req.body
-  console.log(req.body)
+
   const citas = await Appointment.create({ name, service, email, date, id })
   await User.findByIdAndUpdate(id, { $push: { cita: citas._id } })
   console.log(res.json(citas))
 })
 
-router.post('/update/:citaId', async (req, res, next) => {
+router.put('/update/:citaId', async (req, res, next) => {
+  console.log(req.body, req.params)
   const { name, service, email, date, id } = req.body
   const { citaId } = req.params
   console.log(req.body)
